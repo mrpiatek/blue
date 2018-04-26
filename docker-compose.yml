@@ -1,0 +1,31 @@
+version: '3.2'
+services:
+  client:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "80:8000"
+    volumes:
+      - type: "bind"
+        source: ./install-php.sh
+        target: /var/www/install-php.sh
+    command: >
+      bash -c "php /var/www/artisan serv"
+  server:
+      build:
+        context: ./
+        dockerfile: Dockerfile
+      ports:
+        - "8080:8000"
+      volumes:
+        - type: "bind"
+          source: ./install-php.sh
+          target: /var/www/install-php.sh
+      command: >
+        bash -c "php /var/www/artisan serv"
+
+  database:
+    image: "postgres:alpine"
+    ports:
+      - "5432:5432"
