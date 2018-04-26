@@ -6,11 +6,6 @@
 
 [Client package](https://www.github.com/mrpiatek/blue-client)
 
-## ToDo
+## Docker
 
-* Client-side product update/create/destroy,
-* Client-side validation,
-* Client-side Products Service error handling,
-* More unit test coverage,
-* Integration tests and CI,
-* Improve docs.
+Branch [develop](https://github.com/mrpiatek/blue/tree/develop) has a basic, not-yet-operational, docker-compose setup.
