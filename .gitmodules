@@ -1,0 +1,6 @@
+[submodule "blue-server"]
+	path = blue-server
+	url = git@github.com:mrpiatek/blue-server.git
+[submodule "blue-client"]
+	path = blue-client
+	url = git@github.com:mrpiatek/blue-client.git
