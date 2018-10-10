@@ -1,0 +1,75 @@
+version: "3.1"
+services:
+    client-webserver:
+        image: nginx:alpine
+        working_dir: /app
+        volumes:
+        - ./blue-client:/app
+        - ./docker/nginx/client.conf:/etc/nginx/conf.d/default.conf
+        ports:
+        - "80:80"
+        networks:
+        - client_network
+        - default
+
+    client-php:
+        build: docker/php
+        working_dir: /app
+        volumes:
+        - ./blue-client:/app
+        - ./docker/php/php.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+        networks:
+        - client_network
+
+    client-composer:
+        restart: 'no'
+        image: composer:latest
+        command: install
+        volumes:
+        - ./blue-client:/app
+
+    server-webserver:
+        image: nginx:alpine
+        working_dir: /app
+        volumes:
+        - ./blue-server:/app
+        - ./docker/nginx/server.conf:/etc/nginx/conf.d/default.conf
+        ports:
+        - "8000:80"
+        networks:
+        - server_network
+        - default
+
+    server-php:
+        build: docker/php
+        working_dir: /app
+        volumes:
+        - ./blue-server:/app
+        - ./docker/php/php.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+        networks:
+        - server_network
+
+    server-db:
+        image: mysql:8
+        volumes:
+        - ./docker/mysql:/var/lib/mysql
+        restart: always
+        environment:
+            MYSQL_DATABASE: blue
+            MYSQL_USER: blue
+            MYSQL_PASSWORD: dev
+            MYSQL_ROOT_PASSWORD: dev
+        networks:
+        - server_network
+
+    server-composer:
+        restart: 'no'
+        image: composer:latest
+        command: install
+        volumes:
+        - ./blue-server:/app
+
+networks:
+    server_network:
+    client_network:
+    default:

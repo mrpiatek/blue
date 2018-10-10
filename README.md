@@ -1,4 +1,6 @@
-# Blue application index
+# Blue application
+
+Example application showcasing REST communication between two services shipped as Laravel modules.
 
 ## Table of contents
 
@@ -6,6 +8,6 @@
 
 [Client package](https://www.github.com/mrpiatek/blue-client)
 
-## Docker
+## Installation
 
-Branch [develop](https://github.com/mrpiatek/blue/tree/develop) has a basic, not-yet-operational, docker-compose setup.
+`docker compose up`
